@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quiz Result</title>
+        <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        #result-container {
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+
+        .incorrect {
+            color: red;
+            font-weight: bold;
+        }
+        #score{
+            color: blue;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="main">
+            <main>
+
+                <div class="options-container">
+                    <a href="index.html" class="option">Back to Home</a>
+                </div>
+            </main>
+        </div>
+        <div id="result-container">
+            <h2>Quiz Result</h2>
+            <p>Your Score: <span id="score"></span></p>
+            <div id="answers-container"></div>
+        </div>
+
+        <script>
+    // Get the score from the URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const score = urlParams.get('score');
+
+    // Display the score
+    document.getElementById('score').innerText = score;
+
+    // Sample questions and answers
+    const questions = [
+    { 
+        question: 'What is the value of (5 + 2)² / (5² - 2²) in its simplest form?',
+        options: ['8/7', '21/3', '7/2', '49/3'],
+        correctAnswer: '8/7'
+    },
+    { 
+        question: 'What is the value of (1 * 1/2) ÷ 20 / (2/5) in its simplest form?',
+        options: ['2/7', '1/2', '49/200', '1/3'],
+        correctAnswer: '2/7'
+    },
+    { 
+        question: 'What is the EXACT value of 5/3 - (1/9 * 3)?',
+        options: ['0', '1', '2', '3'],
+        correctAnswer: '2'
+    },
+    { 
+        question: 'After a 10% discount, an article is sold for $360. What was the price before the discount?',
+        options: ['$36', '$324', '$392', '$400'],
+        correctAnswer: '$400'
+    },
+    { 
+        question: 'You invest J$20,000 in a building society account which pays 4% interest each year. What is the value of the account after 2 years?',
+        options: ['J$20,800', 'J$21,600', 'J$21,616', 'J$21,632'],
+        correctAnswer: 'J$21,632'
+    },
+    { 
+        question: 'The expression (3x − 2)(x + 1) is equal to:',
+        options: ['3x²−x−2', '3x²−x+2', '3x²+x−2', '3x²+x+2'],
+        correctAnswer: '3x²−x−2'
+    },
+    { 
+        question: 'If a and b are two integers, then 3(a − b)² means:',
+        options: ['three times the square of their difference', 'three times the difference of their squares', 'six times their difference', 'the square of three times their difference'],
+        correctAnswer: 'three times the square of their difference'
+    },
+    { 
+        question: 'Solve the pair of simultaneous equations 3x+y=1 and x−2y=5. What are the values of x and y?',
+        options: ['x=−1, y=2', 'x=1, y=−2', 'x=2, y=−1', 'x=−2, y=1'],
+        correctAnswer: 'x=−1, y=2'
+    },
+    { 
+        question: 'The expression 8x² − 2xy − 15y² is equal to:',
+        options: ['(8x − 15y)(x + y)', '(2x + 3y)(4x − 5y)', '(2x − 5y)(4x + 3y)', '(2x − 3y)(4x +5y)'],
+        correctAnswer: '(2x + 3y)(4x − 5y)'
+    },
+    { 
+        question: 'The expression (3x − 2)(3x + 2) is equal to:',
+        options: ['9x²+6x−4', '9x²−4', '9x²+4', '9x²−6x+4'],
+        correctAnswer: '9x²−4'
+    },
+    { 
+        question: 'Solve the simultaneous equations 2x + 3y = −2 and 2x + 5y = 2. What are the values of x and y?',
+        options: ['x=2, y=−4', 'x=4, y=−2', 'x=−2, y=4', 'x=−4, y=2'],
+        correctAnswer: 'x=−4, y=2'
+    },
+    ];
+
+    const answersContainer = document.getElementById('answers-container');
+
+    // Display the answers
+    questions.forEach((question, index) => {
+        const userAnswer = urlParams.get(`q${index}`);
+        const answerElement = document.createElement('p');
+        answerElement.innerHTML = `<strong>Q${index + 1}:</strong> ${question.question}<br><br>`;
+        answerElement.innerHTML += `Your Answer: ${userAnswer} `;
+        if (userAnswer === question.correctAnswer) {
+            answerElement.innerHTML += `<span class="correct">(Correct)</span>`;
+        } else {
+            answerElement.innerHTML += `<span class="incorrect">(Incorrect - Correct Answer: ${question.correctAnswer})</span>`;
+        }
+        answersContainer.appendChild(answerElement);
+    });
+</script>
+
+    </body>
+</html>

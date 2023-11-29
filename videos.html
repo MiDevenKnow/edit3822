@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quiz Website - Videos</title>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .video-item {
+            width: 48%;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        .main {
+            background-image: url("https://img.freepik.com/premium-vector/social-media-coordination-video-content-production-vector-isometric-illustration-social-media-campai_453374-484.jpg?size=626&ext=jpg");
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-repeat: round;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .main2{
+            max-width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+        }
+
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .option {
+            width: 40%;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .option:hover {
+            background: #0056b3;
+        }
+        
+    </style>
+    </head>
+
+    <body>
+        <header>
+            <h1>Quiz Website - Videos</h1>
+        </header>
+        <div class="main">
+            <main>
+                <h2>Choose an Option:</h2>
+
+                <div class="options-container">
+                    <a href="index.html" class="option">Back to Home</a>
+                    <a href="quiz.html" class="option">Take a Quiz</a>
+                    <a href="faq.html" class="option">Frequently Asked Questions</a>
+                    <a href="help.html" class="option">Hands-on Help with
+                        Material</a>
+                </div>
+            </main>
+        </div>
+        <main class="main2">
+            <h2>Watch Videos</h2>
+
+            <div class="video-container" id="videoContainer">
+                <!-- Videos will be dynamically added here using JavaScript -->
+            </div>
+        </main>
+
+        <script>
+        const videoContainer = document.getElementById('videoContainer');
+        const videoLinks = [
+            "https://www.youtube.com/embed/_LrOzWu5lKU",
+            'https://www.youtube.com/embed/VIDEO_ID_2',
+            // Add more video links as needed
+        ];
+
+        videoLinks.forEach(link => {
+            const videoItem = document.createElement('div');
+            videoItem.classList.add('video-item');
+
+            const iframe = document.createElement('iframe');
+            iframe.src = link;
+            iframe.allowFullscreen = true;
+
+            videoItem.appendChild(iframe);
+            videoContainer.appendChild(videoItem);
+        });
+    </script>
+    </body>
+
+</html>

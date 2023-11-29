@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Math Quiz</title>
+        <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        #quiz-container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        #question-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        #options-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .option {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #result-container {
+            margin-top: 20px;
+        }
+        main {
+            max-width: 100%;
+            margin: 20px auto;
+            padding: 5px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .option {
+            width: 10%;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .option:hover {
+            background: #0056b3;
+        }
+
+        button{
+            padding: 7px 22px;
+    background: darkcyan;
+    border: none;
+    color: white;
+    border-radius: 6px;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="main">
+            <main>
+
+                <div class="options-container">
+                    <a href="index.html" class="option">Back to Home</a>
+                </div>
+            </main>
+        </div>
+        <div id="quiz-container">
+            <div id="question-container"></div>
+            <div id="options-container"></div>
+            <button onclick="finishQuiz()">Finish</button>
+            <div id="result-container"></div>
+        </div>
+
+        <script>
+    // Sample math questions
+    const questions = [
+    { 
+        question: 'What is the value of (5 + 2)² / (5² - 2²) in its simplest form?',
+        options: ['8/7', '21/3', '7/2', '49/3'],
+        correctAnswer: '8/7'
+    },
+    { 
+        question: 'What is the value of (1 * 1/2) ÷ 20 / (2/5) in its simplest form?',
+        options: ['2/7', '1/2', '49/200', '1/3'],
+        correctAnswer: '2/7'
+    },
+    { 
+        question: 'What is the EXACT value of 5/3 - (1/9 * 3)?',
+        options: ['0', '1', '2', '3'],
+        correctAnswer: '2'
+    },
+    { 
+        question: 'After a 10% discount, an article is sold for $360. What was the price before the discount?',
+        options: ['$36', '$324', '$392', '$400'],
+        correctAnswer: '$400'
+    },
+    { 
+        question: 'You invest J$20,000 in a building society account which pays 4% interest each year. What is the value of the account after 2 years?',
+        options: ['J$20,800', 'J$21,600', 'J$21,616', 'J$21,632'],
+        correctAnswer: 'J$21,632'
+    },
+    { 
+        question: 'The expression (3x − 2)(x + 1) is equal to:',
+        options: ['3x²−x−2', '3x²−x+2', '3x²+x−2', '3x²+x+2'],
+        correctAnswer: '3x²−x−2'
+    },
+    { 
+        question: 'If a and b are two integers, then 3(a − b)² means:',
+        options: ['three times the square of their difference', 'three times the difference of their squares', 'six times their difference', 'the square of three times their difference'],
+        correctAnswer: 'three times the square of their difference'
+    },
+    { 
+        question: 'Solve the pair of simultaneous equations 3x+y=1 and x−2y=5. What are the values of x and y?',
+        options: ['x=−1, y=2', 'x=1, y=−2', 'x=2, y=−1', 'x=−2, y=1'],
+        correctAnswer: 'x=−1, y=2'
+    },
+    { 
+        question: 'The expression 8x² − 2xy − 15y² is equal to:',
+        options: ['(8x − 15y)(x + y)', '(2x + 3y)(4x − 5y)', '(2x − 5y)(4x + 3y)', '(2x − 3y)(4x +5y)'],
+        correctAnswer: '(2x + 3y)(4x − 5y)'
+    },
+    { 
+        question: 'The expression (3x − 2)(3x + 2) is equal to:',
+        options: ['9x²+6x−4', '9x²−4', '9x²+4', '9x²−6x+4'],
+        correctAnswer: '9x²−4'
+    },
+    { 
+        question: 'Solve the simultaneous equations 2x + 3y = −2 and 2x + 5y = 2. What are the values of x and y?',
+        options: ['x=2, y=−4', 'x=4, y=−2', 'x=−2, y=4', 'x=−4, y=2'],
+        correctAnswer: 'x=−4, y=2'
+    },
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let userAnswers = [];
+
+    function startQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        userAnswers = [];
+        showQuestion();
+    }
+
+    function showQuestion() {
+        const questionContainer = document.getElementById('question-container');
+        const optionsContainer = document.getElementById('options-container');
+        const resultContainer = document.getElementById('result-container');
+
+        questionContainer.innerHTML = currentQuestionIndex+1+"/"+questions.length+" - " + questions[currentQuestionIndex].question;
+        optionsContainer.innerHTML = '';
+
+        questions[currentQuestionIndex].options.forEach((option, index) => {
+            const optionElement = document.createElement('div');
+            optionElement.classList.add('option');
+            optionElement.innerText = option;
+            optionElement.addEventListener('click', () => checkAnswer(option));
+            optionsContainer.appendChild(optionElement);
+        });
+
+        resultContainer.innerText = '';
+    }
+
+    function checkAnswer(selectedOption) {
+        const correctAnswer = questions[currentQuestionIndex].correctAnswer;
+
+        if (selectedOption === correctAnswer) {
+            score++;
+        }
+
+        currentQuestionIndex++;
+        userAnswers.push(selectedOption);
+        if (currentQuestionIndex < questions.length) {
+            showQuestion();
+        } else {
+            finishQuiz();
+        }
+    }
+
+    function showResult() {
+        const resultContainer = document.getElementById('result-container');
+        resultContainer.innerText = `Your score: ${score} out of ${questions.length}`;
+    }
+
+    function finishQuiz() {
+        // Redirect to the result page
+        const resultUrl = `result.html?score=${score}&${userAnswers.map((answer, index) => `q${index}=${answer}`).join('&')}`;
+        window.location.href = resultUrl;
+    }
+    // Start the quiz when the page loads
+    startQuiz();
+</script>
+
+    </body>
+</html>
