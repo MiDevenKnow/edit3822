@@ -2,6 +2,6 @@
 // Add or modify video links as needed
 const videoLinks = [
   "https://www.youtube.com/watch?v=_LrOzWu5lKU",
-  "https://www.youtube.com/embed/VIDEO_ID_2",
+  "https://www.youtube.com/watch?v=4bGh1DEpMKI",
   // Add more video links as needed
 ];
